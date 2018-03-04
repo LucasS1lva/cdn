@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Snake</title>
+	<style type="text/css">
+		canvas{
+			background: #9ccb95;
+			margin: auto;
+			position: absolute;
+			top: 0px;
+			bottom: 0px;
+			left: 0px;
+			right: 0px;
+		}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+
+window.addEventListener("resize", redimensionar);
+var canvas, ctx, W, H, FPS, escala, snake;
+
+
+	function redimensionar(){
+		W = window.innerWidth;
+		H = window.innerHeight;
+
+		canvas.width = W;
+		canvas.height = H;
+
+		escala = Math.max(
+				 Math.floor(W / 60),
+				 Math.floor(H / 60)
+				 );
+	}
+
+	function iniciar() {
+		canvas = document.createElement("canvas");
+		redimensionar();
+		document.body.appendChild(canvas);
+
+		ctx = canvas.getContext("2d");
+
+		FPS = 15;
+		newGame();
+		return setInterval(atuaizar, 1000/FPS);
+	}
+
+	function newGame() {
+		snake = new Snake();
+	}
+
+	function Snake(){
+		this.corpo = [[10,10],[10,11],[10,12]];
+		this.cor = "#000";
+
+		this.draw = function(){
+			ctx.fillStyle = this.cor;
+
+			for(var i = 0; i < this.corpo.length; i++){
+				ctx.fillRect(this.corpo[i][0] * escala, this.corpo[i][1] * escala, escala, escala);
+			}
+		}
+	}
+
+	function atuaizar() {
+		gameLoop();
+		desenha();
+	}
+
+	function gameLoop() {
+		//console.log("a");
+	}
+
+	function desenha() {
+		ctx.clearRect(0, 0, W, H);
+
+		snake.draw();
+	}
+
+iniciar();
+</script>
+</body>
+</html>
